@@ -5,9 +5,10 @@ const router = express.Router();
 //* GET - get all todos
 router.get("/", async (req, res) => {
   try {
-    const todos = await Todo.find();
-    res.status(200).json(todos);
+    const todos = await Todo.find(); // get all todos
+    res.status(200).json(todos); // send back all todos
   } catch (err) {
+    // if there is an error:
     console.error(err.message);
     res.status(400).json({ msg: "Server Error" });
   }
@@ -15,11 +16,10 @@ router.get("/", async (req, res) => {
 
 //* POST - Create a new todo
 router.post("/", (req, res) => {
-  const todo = req.body;
-
+  const todo = req.body; // get the body of the todo
   try {
-    const todo = await Todo.create(todo);
-    res.status(200).json({ todo_item: todo });
+    const todo = await Todo.create(todo); // create the todo
+    res.status(200).json({ todo_item: todo }); // send back the todo
   } catch (err) {
     console.error(err.message);
     res.status(400).json({ msg: "Server Error" });
@@ -30,7 +30,7 @@ router.post("/", (req, res) => {
 router.get("/:id", async (req, res) => {
   const id = req.params.id; // get the todo id
 
-  // find the todo using th id 
+  // find the todo using th id
   try {
     const todo = await Todo.findById(id);
     // if the todo is NOT found
@@ -63,13 +63,11 @@ router.put("/:id", async (req, res) => {
 
 //* DELETE - delete a todo by its id
 router.delete("/:id", async (req, res) => {
-    const id = req.params.id
-    try {
-        const todo = await Todo.findOneAndDelete(id);
-        res.status(204).json({msg: "Todo deleted"})
-    } catch (err) {
-        
-    }
-})
+  const id = req.params.id;
+  try {
+    const todo = await Todo.findOneAndDelete(id);
+    res.status(204).json({ msg: "Todo deleted" });
+  } catch (err) {}
+});
 
 module.exports = router;
