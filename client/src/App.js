@@ -2,6 +2,7 @@ import { useState } from "react";
 import dummyData from "./TodoData";
 import TodoList from "./components/TodoList";
 import "./App.css";
+import TodoForm from "./components/TodoForm";
 
 function App() {
   // place the dummy data into state
@@ -17,6 +18,7 @@ function App() {
   };
   return (
     <div className="App">
+      <TodoForm addTodo={addTodo}/>
       <TodoList todoData={todoData} removeTodo={removeTodo}/>
     </div>
   );
