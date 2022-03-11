@@ -1,27 +1,27 @@
-import { useState } from "react";
-import dummyData from "./TodoData";
+import { useEffect } from "react";
 import TodoList from "./components/TodoList";
-import "./App.css";
 import TodoForm from "./components/TodoForm";
+import { fetchTodo } from "./actions/actions";
+import { connect } from "react-redux";
+import "./App.css";
 
-function App() {
-  // place the dummy data into state
-  const [todoData, setTodoData] = useState(dummyData);
+const App = (props) => {
+  useEffect(() => {
+    props.fetchTodo();
+  }, []);
 
-  // adds a todo to the todoData in state
-  const addTodo = (todo) => setTodoData([...todoData, todo]);
-
-  // removes a todo from the todoData in state
-  const removeTodo = (todo) => {
-    const newState = todoData.filter((item) => item !== todo);
-    setTodoData(newState);
-  };
   return (
     <div className="App">
-      <TodoForm addTodo={addTodo}/>
-      <TodoList todoData={todoData} removeTodo={removeTodo}/>
+      <TodoForm />
+      {props.isLoading ? "TODO LIST IS LOADING" : "TODO LIST LOADED"}
+      <TodoList />
+      {props.error !== "" ? props.error : ""}
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  isLoading: state.isLoading,
+  error: state.error,
+});
+export default connect(mapStateToProps, {fetchTodo})(App);

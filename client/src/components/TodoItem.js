@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { connect } from 'react-redux';
+import { removeTodo } from '../actions/actions';
 
 const TodoItem = (props) => {
   // state to track if a todo is completed or not
@@ -23,4 +25,4 @@ const TodoItem = (props) => {
   );
 };
 
-export default TodoItem;
+export default connect(null, {removeTodo})(TodoItem);

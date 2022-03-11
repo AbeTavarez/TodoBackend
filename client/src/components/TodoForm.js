@@ -1,4 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
+import { connect } from 'react-redux';
+import { addTodo } from '../actions/actions';
 
 const TodoForm = (props) => {
     // Form initial state
@@ -44,4 +46,4 @@ const TodoForm = (props) => {
   )
 }
 
-export default TodoForm
+export default connect(null, {addTodo})(TodoForm)
